@@ -1,5 +1,6 @@
 {
   "servers": {
+    // ── Built-in servers ─────────────────────────────────────────────────────
     "github": {
       "type": "http",
       "url": "https://api.githubcopilot.com/mcp/"
@@ -22,6 +23,57 @@
         "registry"
       ],
       "env": {}
+    },
+    // ── Enterprise Foundry MCP servers ───────────────────────────────────────
+    // foundry-mcp: exposes Azure AI Foundry tools (catalog, chat, embeddings,
+    // prompt flows) to GitHub Copilot. Runs in stdio mode for local dev;
+    // deployed as an Azure Container App in production.
+    "foundry-mcp": {
+      "type": "stdio",
+      "command": "${workspaceFolder}/mcp/foundry-mcp/.venv/bin/python",
+      "args": [
+        "-m",
+        "foundry_mcp"
+      ],
+      "cwd": "${workspaceFolder}/mcp/foundry-mcp/src",
+      "env": {
+        "MCP_TRANSPORT": "stdio",
+        "AZURE_FOUNDRY_HUB_URL": "${env:AZURE_FOUNDRY_HUB_URL}",
+        "AZURE_AI_SERVICES_ENDPOINT": "${env:AZURE_AI_SERVICES_ENDPOINT}",
+        "FOUNDRY_PROJECT_NAME": "${env:FOUNDRY_PROJECT_NAME}",
+        "AZURE_SUBSCRIPTION_ID": "${env:AZURE_SUBSCRIPTION_ID}",
+        "AZURE_RESOURCE_GROUP": "${env:AZURE_RESOURCE_GROUP}"
+      }
+    },
+    // databricks: exposes Databricks SQL, Jobs, and MLflow tools via MCP.
+    // Set DATABRICKS_MCP_URL to the Container Apps URL after deployment.
+    // See mcp/connectors/databricks/README.md for setup instructions.
+    "databricks": {
+      "type": "http",
+      "url": "${env:DATABRICKS_MCP_URL}",
+      "headers": {
+        "Authorization": "Bearer ${env:DATABRICKS_MCP_TOKEN}"
+      }
+    },
+    // salesforce: exposes Salesforce CRM operations (SOQL, Accounts, Opportunities)
+    // via MCP. Set SALESFORCE_MCP_URL to the Container Apps URL after deployment.
+    // See mcp/connectors/salesforce/README.md for setup instructions.
+    "salesforce": {
+      "type": "http",
+      "url": "${env:SALESFORCE_MCP_URL}",
+      "headers": {
+        "Authorization": "Bearer ${env:SALESFORCE_MCP_TOKEN}"
+      }
+    },
+    // m365: exposes Microsoft 365 Graph API tools (Mail, Calendar, Teams,
+    // SharePoint) via MCP. Set M365_MCP_URL to the Container Apps URL after deployment.
+    // See mcp/connectors/m365/README.md for setup instructions.
+    "m365": {
+      "type": "http",
+      "url": "${env:M365_MCP_URL}",
+      "headers": {
+        "Authorization": "Bearer ${env:M365_MCP_TOKEN}"
+      }
     }
   }
 }

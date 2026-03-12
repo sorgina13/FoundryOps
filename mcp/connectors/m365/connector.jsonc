@@ -1,0 +1,61 @@
+{
+  // Microsoft 365 MCP Connector configuration.
+  // Loaded by the foundry-mcp orchestrator or registered directly in .vscode/mcp.json.
+  "name": "m365",
+  "version": "1.0.0",
+  "displayName": "Microsoft 365",
+  "description": "Microsoft Graph API tools (Mail, Calendar, Teams, SharePoint) via MCP",
+  "transport": "http",
+  "endpoint": "${M365_MCP_URL}",
+  "auth": {
+    "type": "bearer",
+    "tokenEnv": "M365_MCP_TOKEN"
+  },
+  "tools": [
+    {
+      "name": "m365_list_emails",
+      "description": "List recent emails from a specified mailbox (user UPN or 'me')."
+    },
+    {
+      "name": "m365_get_email",
+      "description": "Get the full content of a specific email by message ID."
+    },
+    {
+      "name": "m365_list_calendar_events",
+      "description": "List upcoming calendar events for a user within an optional date range."
+    },
+    {
+      "name": "m365_get_calendar_event",
+      "description": "Get details of a specific calendar event by event ID."
+    },
+    {
+      "name": "m365_list_teams_channels",
+      "description": "List channels in a Microsoft Teams team by team ID or name."
+    },
+    {
+      "name": "m365_get_teams_messages",
+      "description": "Get recent messages from a Microsoft Teams channel."
+    },
+    {
+      "name": "m365_list_sharepoint_files",
+      "description": "List files in a SharePoint document library by site URL and library name."
+    },
+    {
+      "name": "m365_get_file_content",
+      "description": "Retrieve the text content of a SharePoint or OneDrive file by drive item ID."
+    },
+    {
+      "name": "m365_search_content",
+      "description": "Search across Microsoft 365 content (mail, files, sites) with a keyword query."
+    },
+    {
+      "name": "m365_get_user_profile",
+      "description": "Get the Entra ID profile of a user by UPN or object ID."
+    }
+  ],
+  "requiredSecrets": [
+    "m365-tenant-id",
+    "m365-client-id",
+    "m365-client-secret"
+  ]
+}

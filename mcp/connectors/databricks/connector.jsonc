@@ -1,0 +1,61 @@
+{
+  // Databricks MCP Connector configuration.
+  // Loaded by the foundry-mcp orchestrator or registered directly in .vscode/mcp.json.
+  "name": "databricks",
+  "version": "1.0.0",
+  "displayName": "Databricks",
+  "description": "Databricks SQL, Jobs, and MLflow tools via MCP",
+  "transport": "http",
+  "endpoint": "${DATABRICKS_MCP_URL}",
+  "auth": {
+    "type": "bearer",
+    "tokenEnv": "DATABRICKS_MCP_TOKEN"
+  },
+  "tools": [
+    {
+      "name": "databricks_sql_query",
+      "description": "Run a SQL query against a Databricks SQL warehouse and return results."
+    },
+    {
+      "name": "databricks_list_catalogs",
+      "description": "List Unity Catalog catalogs in the Databricks workspace."
+    },
+    {
+      "name": "databricks_list_schemas",
+      "description": "List schemas in a Unity Catalog catalog."
+    },
+    {
+      "name": "databricks_list_tables",
+      "description": "List tables in a Unity Catalog schema."
+    },
+    {
+      "name": "databricks_get_table_schema",
+      "description": "Get the column schema of a specific Databricks table."
+    },
+    {
+      "name": "databricks_list_jobs",
+      "description": "List Databricks Workflows jobs."
+    },
+    {
+      "name": "databricks_run_job",
+      "description": "Trigger a Databricks job by job ID."
+    },
+    {
+      "name": "databricks_get_job_status",
+      "description": "Check the status and output of a Databricks job run."
+    },
+    {
+      "name": "databricks_list_models",
+      "description": "List MLflow registered models in the Databricks workspace."
+    },
+    {
+      "name": "databricks_get_model_metrics",
+      "description": "Retrieve metrics for an MLflow model run."
+    }
+  ],
+  "requiredSecrets": [
+    "databricks-host",
+    "databricks-client-id",
+    "databricks-client-secret"
+  ]
+}

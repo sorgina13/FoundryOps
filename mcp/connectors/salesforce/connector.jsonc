@@ -1,0 +1,62 @@
+{
+  // Salesforce MCP Connector configuration.
+  // Loaded by the foundry-mcp orchestrator or registered directly in .vscode/mcp.json.
+  "name": "salesforce",
+  "version": "1.0.0",
+  "displayName": "Salesforce CRM",
+  "description": "Salesforce CRM tools (SOQL, Accounts, Contacts, Opportunities, Cases) via MCP",
+  "transport": "http",
+  "endpoint": "${SALESFORCE_MCP_URL}",
+  "auth": {
+    "type": "bearer",
+    "tokenEnv": "SALESFORCE_MCP_TOKEN"
+  },
+  "tools": [
+    {
+      "name": "sf_soql_query",
+      "description": "Execute a SOQL query against Salesforce and return matching records."
+    },
+    {
+      "name": "sf_get_account",
+      "description": "Retrieve a Salesforce Account record by ID or name."
+    },
+    {
+      "name": "sf_list_accounts",
+      "description": "List Salesforce Accounts matching an optional name filter."
+    },
+    {
+      "name": "sf_get_contact",
+      "description": "Retrieve a Salesforce Contact by ID or email address."
+    },
+    {
+      "name": "sf_list_contacts",
+      "description": "List Contacts for a given Salesforce Account ID."
+    },
+    {
+      "name": "sf_get_opportunity",
+      "description": "Retrieve a Salesforce Opportunity by ID."
+    },
+    {
+      "name": "sf_list_opportunities",
+      "description": "List open Salesforce Opportunities, optionally filtered by stage."
+    },
+    {
+      "name": "sf_create_case",
+      "description": "Create a new Salesforce support Case with subject, description, and priority."
+    },
+    {
+      "name": "sf_get_case",
+      "description": "Retrieve a Salesforce Case by ID."
+    },
+    {
+      "name": "sf_update_record",
+      "description": "Update any Salesforce SObject record by ID and a map of field values."
+    }
+  ],
+  "requiredSecrets": [
+    "salesforce-instance-url",
+    "salesforce-client-id",
+    "salesforce-private-key",
+    "salesforce-username"
+  ]
+}
