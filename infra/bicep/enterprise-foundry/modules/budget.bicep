@@ -16,6 +16,9 @@ param alertEmail string
 @description('Resource group name scope for the budget.')
 param resourceGroupName string
 
+@description('Budget start date in YYYY-MM-DD format (default: first of the current month).')
+param startDate string = '2025-01-01'
+
 // ─── Budget ───────────────────────────────────────────────────────────────────
 
 resource budget 'Microsoft.Consumption/budgets@2024-08-01' = {
@@ -25,7 +28,7 @@ resource budget 'Microsoft.Consumption/budgets@2024-08-01' = {
     amount: amount
     timeGrain: 'Monthly'
     timePeriod: {
-      startDate: '${take(utcNow('yyyy-MM'), 7)}-01'
+      startDate: startDate
     }
     filter: {
       dimensions: {

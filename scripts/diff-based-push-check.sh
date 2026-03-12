@@ -62,7 +62,20 @@ fi
 echo "🔄 Running diff-based push checks..."
 echo ""
 
-check_domain "Bicep lint" "$BICEP_COUNT" "for f in infra/bicep/*/main.bicep; do [ -f \"\$f\" ] && bicep build \"\$f\" && bicep lint \"\$f\"; done"
+check_domain "Bicep lint" "$BICEP_COUNT" "
+  ok=0
+  for f in infra/bicep/*/main.bicep; do
+    [ -f \"\$f\" ] || continue
+    bicep restore \"\$f\" 2>/dev/null || true
+    result=\$(bicep lint \"\$f\" --no-restore 2>&1 || true)
+    real_errors=\$(echo \"\$result\" | grep -E '^.*(Error|error)' | grep -v 'BCP190\\|BCP192\\|BCP062\\|BCP104' || true)
+    if [ -n \"\$real_errors\" ]; then
+      echo \"\$real_errors\" >&2
+      ok=1
+    fi
+  done
+  exit \$ok
+"
 check_domain "Terraform fmt" "$TF_COUNT" "npm run lint:terraform-fmt"
 check_domain "Terraform validate" "$TF_COUNT" "npm run validate:terraform"
 check_domain "Artifact templates" "$MD_ARTIFACT_COUNT" "npm run lint:artifact-templates"

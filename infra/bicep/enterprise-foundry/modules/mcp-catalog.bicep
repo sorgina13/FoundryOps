@@ -23,9 +23,6 @@ param mcpImageTag string = 'latest'
 @description('ACR login server URL (e.g. crfoundryprod7xk2.azurecr.io).')
 param acrLoginServer string
 
-@description('ACR system-assigned managed identity principal ID (for AcrPull role).')
-param acrPrincipalId string
-
 @description('ACR resource ID (used to scope the AcrPull role assignment uniquely).')
 param acrResourceId string
 

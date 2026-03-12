@@ -154,7 +154,6 @@ module mcpCatalog 'modules/mcp-catalog.bicep' = {
     tags: commonTags
     mcpImageTag: mcpImageTag
     acrLoginServer: containerRegistry.outputs.loginServer
-    acrPrincipalId: containerRegistry.outputs.principalId
     acrResourceId: containerRegistry.outputs.resourceId
     foundryHubEndpoint: aiHub.outputs.endpoint
     aiServicesEndpoint: aiProject.outputs.aiServicesEndpoint

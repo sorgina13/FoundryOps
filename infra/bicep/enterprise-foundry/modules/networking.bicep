@@ -56,11 +56,12 @@ module vnet 'br/public:avm/res/network/virtual-network:0.5.0' = {
 
 // ─── Private DNS Zones ────────────────────────────────────────────────────────
 
+var storageSuffix = environment().suffixes.storage
 var privateDnsZoneNames = [
   'privatelink.api.azureml.ms'
   'privatelink.notebooks.azure.net'
   'privatelink.openai.azure.com'
-  'privatelink.blob.core.windows.net'
+  'privatelink.blob.${storageSuffix}'
   'privatelink.vaultcore.azure.net'
   'privatelink.azurecr.io'
   'privatelink.azurecontainerapps.io'
